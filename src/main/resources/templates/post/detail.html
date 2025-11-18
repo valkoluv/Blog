@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}">Заголовок</title>
+</head>
+<body>
+<a th:href="@{/posts}"> &lt; Назад до списку </a>
+
+<h1 th:text="${post.title}">Заголовок Поста</h1>
+
+<p>
+    **Автор:** <span th:text="${post.author.username}"></span>
+    | **Створено:** <span th:text="${#temporals.format(post.createdAt, 'dd.MM.yyyy HH:mm')}"></span>
+</p>
+
+<div style="white-space: pre-wrap;" th:text="${post.content}">
+    Основний вміст поста тут.
+</div>
+
+<hr>
+<a th:href="@{/posts/edit/{id}(id=${post.id})}">Редагувати цей пост</a>
+</body>
+</html>

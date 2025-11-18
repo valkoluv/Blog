@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404 Не Знайдено</title>
+</head>
+<body>
+<h1>❌ 404 - Ресурс Не Знайдено</h1>
+
+<p th:if="${message}" th:text="${message}">Вибачте, запитана сторінка або ресурс не існує.</p>
+<p th:unless="${message}">Вибачте, запитана сторінка або ресурс не існує.</p>
+
+<a th:href="@{/posts}">Повернутися на головну сторінку</a>
+</body>
+</html>

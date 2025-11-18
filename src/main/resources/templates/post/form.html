@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${isEdit ? 'Редагувати Пост' : 'Створити Новий Пост'}">Форма Поста</title>
+    <style>
+        .error-message { color: red; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+<h1 th:text="${isEdit ? '✏️ Редагування Поста' : '➕ Створення Нового Поста'}">Форма</h1>
+
+<form th:action="@{/posts/save}" th:object="${postDto}" method="post">
+
+    <input type="hidden" th:field="*{id}" />
+
+    <div>
+        <label for="title">Заголовок:</label><br>
+        <input type="text" id="title" th:field="*{title}" size="50"/>
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></div>
+    </div>
+    <br>
+
+    <div>
+        <label for="content">Вміст:</label><br>
+        <textarea id="content" th:field="*{content}" rows="10" cols="50"></textarea>
+        <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error-message"></div>
+    </div>
+    <br>
+
+    <div>
+        <label for="authorId">Автор:</label><br>
+        <select id="authorId" th:field="*{authorId}">
+            <option value="">-- Оберіть автора --</option>
+            <option th:each="author : ${authors}"
+                    th:value="${author.id}"
+                    th:text="${author.username}">Автор Name</option>
+        </select>
+    </div>
+    <br>
+
+    <button type="submit" th:text="${isEdit ? 'Зберегти зміни' : 'Опублікувати'}">Зберегти</button>
+    <a th:href="@{/posts}" style="margin-left: 10px;">Скасувати</a>
+
+</form>
+</body>
+</html>

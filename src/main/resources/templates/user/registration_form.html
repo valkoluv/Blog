@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Реєстрація Користувача</title>
+    <style>
+        .error-message { color: red; font-size: 0.9em; }
+        .global-error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h1>🔑 Реєстрація Нового Користувача</h1>
+
+<div th:if="${#fields.hasGlobalErrors()}" class="global-error">
+    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+</div>
+
+<form th:action="@{/users/register}" th:object="${userDto}" method="post">
+
+    <div>
+        <label for="username">Ім'я Користувача:</label><br>
+        <input type="text" id="username" th:field="*{username}"/>
+        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></div>
+    </div>
+    <br>
+
+    <div>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" th:field="*{email}"/>
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+    </div>
+    <br>
+
+    <div>
+        <label for="password">Пароль:</label><br>
+        <input type="password" id="password" th:field="*{password}"/>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+    </div>
+    <br>
+
+    <button type="submit">Зареєструватися</button>
+    <a th:href="@{/users}" style="margin-left: 10px;">Скасувати</a>
+</form>
+</body>
+</html>

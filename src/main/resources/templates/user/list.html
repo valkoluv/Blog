@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список Користувачів</title>
+    <style>
+        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+<h1>👤 Усі Користувачі</h1>
+
+<div th:if="${successMessage}" class="success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="error" th:text="${errorMessage}"></div>
+
+<p><a th:href="@{/users/register}">+ Додати нового користувача (Реєстрація)</a></p>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Ім'я Користувача</th>
+        <th>Дії</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.username}">user.name</td>
+        <td>
+            <form th:action="@{/users/delete/{id}(id=${user.id})}" method="post" style="display: inline;">
+                <button type="submit" onclick="return confirm('Видалити користувача?');">Видалити</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p><a th:href="@{/posts}"> &lt; На головну Блогу </a></p>
+</body>
+</html>
